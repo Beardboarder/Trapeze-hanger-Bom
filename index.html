@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Electrical Trapeze Hanger BOM Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">Hardware BOM Calculator</p>
+      <h1>Electrical Trapeze Hanger Calculator</h1>
+      <p class="subtitle">
+        Calculates 1/2&quot; hanger hardware for mixed spanner-strut and Eaton B-Line B750-J12 beam-clamp trapeze hangers.
+        Threaded rod is intentionally excluded.
+      </p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="card controls">
+      <div class="section-heading">
+        <h2>Hanger Lines</h2>
+        <p>
+          Enter each hanger type on its own line. You can mix span-strut style hangers and B750-J12 beam-clamp style hangers in the same calculation.
+        </p>
+      </div>
+
+      <div class="hanger-lines-wrap">
+        <table class="hanger-lines-table">
+          <thead>
+            <tr>
+              <th>Preset</th>
+              <th>Qty</th>
+              <th>Tiers</th>
+              <th>Top support style</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="hangerLinesBody"></tbody>
+        </table>
+      </div>
+
+      <div class="line-actions">
+        <button id="addLineBtn" type="button">Add hanger line</button>
+        <button id="loadExampleBtn" type="button">Load mixed example</button>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <label for="wasteFactor">Waste / spare factor (%)</label>
+          <input id="wasteFactor" type="number" min="0" step="0.1" value="0" />
+        </div>
+
+        <div>
+          <label for="roundingMode">Rounding</label>
+          <select id="roundingMode">
+            <option value="package">Round up to package size</option>
+            <option value="each">Round up to whole each only</option>
+          </select>
+        </div>
+      </div>
+
+      <details class="rules">
+        <summary>Hardware rules used by this calculator</summary>
+        <ul>
+          <li>All nuts, square washers, and lock washers are 1/2&quot;.</li>
+          <li>Every hanger has 2 threaded rods.</li>
+          <li>Threaded rod quantities are not included.</li>
+          <li>Top spanner hardware per rod: 1 nut above, 1 square washer above, 1 square washer below, 1 lock washer below, 1 nut below.</li>
+          <li>Middle tier hardware per rod: 1 nut above, 1 lock washer above, 1 square washer above, 1 square washer below, 1 nut below.</li>
+          <li>Bottom hanger hardware per rod: 1 nut above, 1 lock washer above, 1 square washer above, 1 square washer below, 1 nut below.</li>
+          <li>Spanner style uses 2 window clamps per hanger.</li>
+          <li>B750-J12 style uses 1 Eaton B-Line B750-J12 beam clamp per rod, plus 2 nuts and 2 lock washers per beam clamp.</li>
+        </ul>
+      </details>
+
+      <div class="actions">
+        <button id="calculateBtn" class="primary">Calculate BOM</button>
+        <button id="resetBtn" type="button">Reset</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="section-heading">
+        <h2>Package Sizes</h2>
+        <p>Used when rounding mode is set to package size.</p>
+      </div>
+
+      <div id="packageSizes" class="package-grid"></div>
+    </section>
+
+    <section class="card results-card">
+      <div class="section-heading results-heading">
+        <div>
+          <h2>Bill of Material</h2>
+          <p id="calcSummary">Enter values and click calculate.</p>
+        </div>
+        <button id="exportCsvBtn" type="button">Export CSV</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Size / Part</th>
+              <th>Raw Qty</th>
+              <th>Order Qty</th>
+              <th>Unit</th>
+              <th>Package Size</th>
+            </tr>
+          </thead>
+          <tbody id="bomBody"></tbody>
+        </table>
+      </div>
+
+      <div id="lineBreakdown" class="breakdown"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      Review quantities before ordering. This calculator is for material takeoff assistance only.
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
