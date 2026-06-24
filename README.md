@@ -1,4 +1,4 @@
-# Electrical Trapeze Hanger BOM Calculator
+# Matts Super Duper Electrical Trapeze Hanger Calculator 1600
 
 Static GitHub Pages web app for calculating 1/2" hardware quantities for electrical trapeze hangers.
 
